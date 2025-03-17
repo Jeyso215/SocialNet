@@ -1,0 +1,146 @@
+name: SocialNet Security Monitor
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    - cron: '0 0 * * 1' # Weekly scans every Monday
+
+jobs:
+  surveillance-pattern-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Full history
+
+    - name: Set up monitoring tools
+      run: |
+        sudo apt-get install -y git-filter-repo
+        git config --global credential.helper 'cache --timeout=300'
+
+    - name: Sensitive pattern scan
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const patterns = [
+            /CBP-\d{4}-[A-Z]{8}/,
+            /DHS-[A-Z]{3}-20\d{2}/,
+            /AKIA[0-9A-Z]{16}/,
+            /ghp_[a-zA-Z0-9]{36}/
+          ];
+
+          const output = await github.rest.search.code({
+            q: `repo:${{ github.repository }} ${patterns.map(p => p.source).join(' OR ')}`
+          });
+
+          if(output.data.total_count > 0) {
+            core.setFailed(`Found ${output.data.total_count} sensitive patterns`);
+            output.data.items.forEach(item => {
+              console.log(`::error file=${item.path},line=1::Sensitive pattern found in ${item.path}`);
+            });
+          }
+
+    - name: Repository structure validation
+      run: |
+        REQUIRED_FILES=("platforms.md" "references.json" "raw-data/full-list.csv")
+        for file in "${REQUIRED_FILES[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "::error file=$file::Missing required file: $file"
+            exit 1
+          fi
+        done
+
+    - name: Reference check
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const requiredCitations = [
+            'Brennan Center [1-5]',
+            'ACLU [6-8]',
+            'EFF [31-40]'
+          ];
+
+          const readme = await github.rest.repos.getContent({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            path: 'platforms.md'
+          });
+
+          const content = Buffer.from(readme.data.content, 'base64').toString();
+
+          requiredCitations.forEach(citation => {
+            if(!content.includes(citation)) {
+              core.setFailed(`Missing required citation: ${citation}`);
+            }
+          });
+
+    - name: Legal compliance check
+      run: |
+        if [ ! -f "SECURITY.md" ] || ! grep -q "public sources" SECURITY.md; then
+          echo "::error file=SECURITY.md::Missing required legal disclaimer"
+          exit 1
+        fi
+
+  ai-protection:
+    needs: surveillance-pattern-check
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+
+    steps:
+    - name: Enable secret scanning
+      uses: github/advanced-security/ghas-enablement@main
+      with:
+        enable-secret-scanning: true
+        enable-secret-scanning-push-protection: true
+
+    - name: Custom pattern registration
+      uses: github/codeql-action/register-custom-patterns@v2
+      with:
+        config: |
+          patterns:
+            - name: government-surveillance-codes
+              description: Government surveillance operation codes
+              regex: |
+                (CBP-\d{4}-[A-Z]{8})|
+                (DHS-[A-Z]{3}-20\d{2})
+              severity: error
+
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check for vulnerable dependencies
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:python"
+
+  post-monitoring:
+    needs: [surveillance-pattern-check, ai-protection]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Upload scan results
+      uses: actions/upload-artifact@v3
+      with:
+        name: security-audit-${{ github.run_id }}
+        path: |
+          security-report.txt
+          pattern-matches.log
+
+    - name: Notify maintainers
+      if: failure()
+      uses: actions/github-script@v6
+      with:
+        script: |
+          await github.rest.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.payload.pull_request.number,
+            body: `@Jeyso215 Security issues detected! Review scan results.`
+          });
