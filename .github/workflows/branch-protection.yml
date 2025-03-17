@@ -1,0 +1,7 @@
+branches:
+  - name: main
+    required_status_checks:
+      contexts: [surveillance-pattern-check, ai-protection]
+    enforce_admins: true
+    required_pull_request_reviews:
+      required_approving_review_count: 2
