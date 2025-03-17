@@ -1,0 +1,78 @@
+{
+  "legal_references": [
+    {
+      "citation_index": 1,
+      "source": "https://www.brennancenter.org/our-work/research-reports/social-media-surveillance-us-government",
+      "title": "Social Media Surveillance by the U.S. Government",
+      "published_date": "2022-01-07",
+      "content": "The Department of Homeland Security, the FBI, and the State Department are among the many federal agencies that routinely monitor social..."
+    },
+    {
+      "citation_index": 2,
+      "source": "https://www.brennancenter.org/our-work/research-reports/federal-government-social-media-surveillance-explained",
+      "title": "Federal Government Social Media Surveillance Explained",
+      "published_date": "2003-12-20",
+      "content": "Social media monitoring may also violate the First Amendment when it burdens constitutionally protected activity without contributing to a legitimate government objective."
+    },
+    {
+      "citation_index": 3,
+      "source": "https://www.brennancenter.org/our-work/research-reports/government-monitoring-social-media-legal-and-policy-challenges",
+      "title": "Government Monitoring of Social Media: Legal and Policy Challenges",
+      "content": "Social media is fertile ground for information collection and analysis. Facebook boasts over two billion active users per month; its subsidiary Instagram has 800 million monthly users..."
+    },
+    {
+      "citation_index": 4,
+      "source": "https://www.brennancenter.org/issues/protect-liberty-security/social-media/government-social-media-surveillance",
+      "title": "Government Social Media Surveillance",
+      "content": "Monitoring online speech — like other forms of surveillance — will lead to self-censorship of those applying for visas or immigration benefits..."
+    },
+    {
+      "citation_index": 5,
+      "source": "https://www.brennancenter.org/our-work/analysis-opinion/government-expanding-its-social-media-surveillance-capabilities",
+      "title": "The Government Is Expanding Its Social Media Surveillance Capabilities",
+      "content": "Federal government agencies such as the Department of Homeland Security (DHS) have dramatically expanded their social media monitoring programs..."
+    },
+    {
+      "citation_index": 6,
+      "source": "https://www.aclu.org/news/national-security/is-the-government-tracking-your-social-media-activity",
+      "title": "Is the Government Tracking Your Social Media Activity?",
+      "published_date": "2023-04-24",
+      "content": "The government’s social media surveillance can have immense consequences. For example, in August 2019, CBP officers denied entry to Ismail Ajjawi..."
+    },
+    {
+      "citation_index": 7,
+      "source": "https://www.aclu.org/news/privacy-technology/why-government-use-social-media-monitoring",
+      "title": "Why Government Use of Social Media Monitoring Software Is a Direct Threat",
+      "published_date": "2016-05-06",
+      "content": "There are serious privacy concerns raised by reports that the United States DOGE Service has gained access to federal agency systems..."
+    },
+    {
+      "citation_index": 8,
+      "source": "https://www.aclu.org/news/privacy-technology/were-demanding-government-come-clean-surveillance-social",
+      "title": "We’re Demanding the Government Come Clean on Surveillance of Social Media",
+      "content": "According to recently released documents, ICE plans to spend $100 million on a contract to monitor social media activity of visitors to the United States..."
+    },
+    {
+      "citation_index": 9,
+      "source": "https://freedomhouse.org/report/freedom-on-the-net/2019/the-crisis-of-social-media/social-media-surveillance",
+      "title": "Social Media Surveillance",
+      "content": "Governments have long employed people to monitor speech on social media, including by creating fraudulent accounts to connect with real-life users..."
+    },
+    {
+      "citation_index": 10,
+      "source": "https://www.justsecurity.org/90879/advances-in-ai-increase-risks-of-government-social-media-monitoring/",
+      "title": "Advances in AI Increase Risks of Government Social Media Monitoring",
+      "published_date": "2024-01-03",
+      "content": "New AI tools are exacerbating problems with social media surveillance."
+    }
+  ],
+  "statistical_context": {
+    "annual_visa_applicants": 14700000,
+    "ice_contract_value": 100000000,
+    "first_amendment_challenges": [
+      "Brennan Center [2][4]",
+      "ACLU [6][8]",
+      "EFF [31-40]"
+    ]
+  }
+}
