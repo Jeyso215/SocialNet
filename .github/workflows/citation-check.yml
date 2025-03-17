@@ -8,4 +8,4 @@ jobs:
     - name: Validate JSON
       run: |
         sudo npm install -g json
-        jsonlint raw-data/references.json
+        jsonlint references.json
