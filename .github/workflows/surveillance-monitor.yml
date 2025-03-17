@@ -49,7 +49,7 @@ jobs:
 
     - name: Repository structure validation
       run: |
-        REQUIRED_FILES=("platforms.md" "references.json" "raw-data/full-list.csv")
+        REQUIRED_FILES=("surveillance-list.md" "references.json")
         for file in "${REQUIRED_FILES[@]}"; do
           if [ ! -f "$file" ]; then
             echo "::error file=$file::Missing required file: $file"
