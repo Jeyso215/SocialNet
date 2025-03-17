@@ -1,0 +1,10 @@
+name: Commit Sanitization Check
+on: [push]
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for sensitive patterns
+        run: |
+          grep -rE 'AKIA[0-9A-Z]{16}|ghp_[a-zA-Z0-9]{36}' . && exit 1 || exit 0
