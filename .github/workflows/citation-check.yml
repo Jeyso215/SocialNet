@@ -1,0 +1,11 @@
+name: Citation Validation
+on: [push]
+jobs:
+  validate-references:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Validate JSON
+      run: |
+        sudo npm install -g json
+        jsonlint raw-data/references.json
