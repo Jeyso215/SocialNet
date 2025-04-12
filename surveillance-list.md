@@ -209,7 +209,7 @@
 | Twilio                   | SMS API                 | FBI                 | Comms infrastructure       |
 | Twitch                   | Streaming               | DHS                 | Live content monitoring    |
 | Twitter                  | Microblogging           | DHS/State Dept    | Visa screening             |
-| Untappd                  | Beer Tracking           | DHS [1]                   | Location habit analysis    |
+| Untappd                  | Beer Tracking           | DHS                  | Location habit analysis    |
 | Venmo                    | Payments                | FinCEN                | Transaction monitoring     |
 | VidLii                   | Video Sharing           | DHS                   | Alt-YouTube monitoring     |
 | Vimeo                    | Video                   | DHS                   | Professional content       |
